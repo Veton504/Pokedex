@@ -28,16 +28,25 @@ function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-// NEU
 function getPokemonImage(pokemon) {
   return pokemon.sprites.other["official-artwork"].front_default;
+}
+
+// NEU
+function getTypesTemplate(pokemon) {
+  let typesHtml = "";
+  for (let i = 0; i < pokemon.types.length; i++) {
+    typesHtml += `<span>${capitalize(pokemon.types[i].type.name)}</span> `;
+  }
+  return typesHtml;
 }
 
 function getPokemonCardTemplate(pokemon) {
   return `
     <li>
-      <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120"> <!-- NEU -->
+      <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
       <p>${capitalize(pokemon.name)}</p>
+      <div>${getTypesTemplate(pokemon)}</div> <!-- NEU -->
     </li>`;
 }
 
