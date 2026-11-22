@@ -28,8 +28,17 @@ function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+// NEU
+function getPokemonImage(pokemon) {
+  return pokemon.sprites.other["official-artwork"].front_default;
+}
+
 function getPokemonCardTemplate(pokemon) {
-  return `<li>${capitalize(pokemon.name)}</li>`;
+  return `
+    <li>
+      <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120"> <!-- NEU -->
+      <p>${capitalize(pokemon.name)}</p>
+    </li>`;
 }
 
 loadPokemonList();
