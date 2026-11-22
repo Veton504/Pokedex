@@ -1,13 +1,18 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+const PAGE_SIZE = 20; // NEU
 let loadedPokemon = [];
+let offset = 0; // NEU
 
 async function loadPokemonList() {
-  let response = await fetch(BASE_URL + "?limit=20&offset=0");
+  let response = await fetch(
+    BASE_URL + "?limit=" + PAGE_SIZE + "&offset=" + offset,
+  ); // NEU
   let data = await response.json();
   for (let i = 0; i < data.results.length; i++) {
     let pokemon = await loadPokemonDetails(data.results[i].url);
     loadedPokemon.push(pokemon);
   }
+  offset += PAGE_SIZE; // NEU
   renderPokemonList();
 }
 
@@ -43,12 +48,17 @@ function getTypesTemplate(pokemon) {
 function getPokemonCardTemplate(pokemon) {
   return `
     <li class="type-${pokemon.types[0].type.name}">
-      <button data-id="card" aria-label="Open details of ${capitalize(pokemon.name)}"> <!-- NEU -->
+      <button data-id="card" aria-label="Open details of ${capitalize(pokemon.name)}">
         <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
         <p>${capitalize(pokemon.name)}</p>
         <div>${getTypesTemplate(pokemon)}</div>
-      </button> <!-- NEU -->
+      </button>
     </li>`;
 }
+
+// NEU
+document
+  .getElementById("loadMoreButton")
+  .addEventListener("click", loadPokemonList);
 
 loadPokemonList();
