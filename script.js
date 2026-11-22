@@ -32,7 +32,6 @@ function getPokemonImage(pokemon) {
   return pokemon.sprites.other["official-artwork"].front_default;
 }
 
-// NEU
 function getTypesTemplate(pokemon) {
   let typesHtml = "";
   for (let i = 0; i < pokemon.types.length; i++) {
@@ -43,10 +42,10 @@ function getTypesTemplate(pokemon) {
 
 function getPokemonCardTemplate(pokemon) {
   return `
-    <li>
+    <li class="type-${pokemon.types[0].type.name}"> <!-- NEU -->
       <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
       <p>${capitalize(pokemon.name)}</p>
-      <div>${getTypesTemplate(pokemon)}</div> <!-- NEU -->
+      <div>${getTypesTemplate(pokemon)}</div>
     </li>`;
 }
 
