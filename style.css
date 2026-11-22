@@ -1,4 +1,12 @@
 /* NEU */
+#pokemonList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
 .type-grass {
   background-color: #78c850;
 }
