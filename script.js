@@ -24,8 +24,12 @@ function renderPokemonList() {
   }
 }
 
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 function getPokemonCardTemplate(pokemon) {
-  return `<li>${pokemon.name}</li>`;
+  return `<li>${capitalize(pokemon.name)}</li>`;
 }
 
 loadPokemonList();
