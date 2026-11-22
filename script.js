@@ -4,7 +4,7 @@ let loadedPokemon = [];
 let offset = 0;
 
 async function loadPokemonList() {
-  setLoading(true); // NEU
+  setLoading(true);
   let response = await fetch(
     BASE_URL + "?limit=" + PAGE_SIZE + "&offset=" + offset,
   );
@@ -15,14 +15,15 @@ async function loadPokemonList() {
   }
   offset += PAGE_SIZE;
   renderPokemonList();
-  setLoading(false); // NEU
+  setLoading(false);
 }
 
-// NEU
 function setLoading(isLoading) {
   let button = document.getElementById("loadMoreButton");
+  let loadingScreen = document.getElementById("loadingScreen"); // NEU
   button.disabled = isLoading;
   button.textContent = isLoading ? "Loading..." : "Load more";
+  loadingScreen.classList.toggle("d-none", !isLoading); // NEU
 }
 
 async function loadPokemonDetails(url) {
