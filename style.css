@@ -6,7 +6,6 @@
   gap: 16px;
 }
 
-/* NEU */
 #pokemonList li {
   padding: 16px;
   border-radius: 12px;
@@ -14,9 +13,16 @@
   transition: transform 0.2s;
 }
 
-/* NEU */
 #pokemonList li:hover {
   transform: scale(1.05);
+}
+
+#pokemonList button {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 .type-grass {
@@ -39,10 +45,55 @@
   background-color: #a8a878;
 }
 
-#pokemonList button {
-  width: 100%;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
+/* NEU ab hier */
+.type-poison {
+  background-color: #a040a0;
+}
+
+.type-electric {
+  background-color: #f8d030;
+}
+
+.type-ground {
+  background-color: #e0c068;
+}
+
+.type-fairy {
+  background-color: #ee99ac;
+}
+
+.type-fighting {
+  background-color: #c03028;
+}
+
+.type-psychic {
+  background-color: #f85888;
+}
+
+.type-rock {
+  background-color: #b8a038;
+}
+
+.type-ghost {
+  background-color: #705898;
+}
+
+.type-ice {
+  background-color: #98d8d8;
+}
+
+.type-dragon {
+  background-color: #7038f8;
+}
+
+.type-dark {
+  background-color: #705848;
+}
+
+.type-steel {
+  background-color: #b8b8d0;
+}
+
+.type-flying {
+  background-color: #a890f0;
 }
