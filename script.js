@@ -20,10 +20,10 @@ async function loadPokemonList() {
 
 function setLoading(isLoading) {
   let button = document.getElementById("loadMoreButton");
-  let loadingScreen = document.getElementById("loadingScreen"); // NEU
+  let loadingScreen = document.getElementById("loadingScreen");
   button.disabled = isLoading;
   button.textContent = isLoading ? "Loading..." : "Load more";
-  loadingScreen.classList.toggle("d-none", !isLoading); // NEU
+  loadingScreen.classList.toggle("d-none", !isLoading);
 }
 
 async function loadPokemonDetails(url) {
@@ -35,8 +35,21 @@ function renderPokemonList() {
   let list = document.getElementById("pokemonList");
   list.innerHTML = "";
   for (let i = 0; i < loadedPokemon.length; i++) {
-    list.innerHTML += getPokemonCardTemplate(loadedPokemon[i]);
+    list.innerHTML += getPokemonCardTemplate(loadedPokemon[i], i); // NEU
   }
+}
+
+// NEU
+function openDialog(index) {
+  let pokemon = loadedPokemon[index];
+  document.getElementById("dialogContent").innerHTML =
+    getDialogTemplate(pokemon);
+  document.getElementById("pokemonDialog").showModal();
+}
+
+// NEU
+function closeDialog() {
+  document.getElementById("pokemonDialog").close();
 }
 
 function capitalize(text) {
@@ -55,10 +68,19 @@ function getTypesTemplate(pokemon) {
   return typesHtml;
 }
 
-function getPokemonCardTemplate(pokemon) {
+// NEU
+function getDialogTemplate(pokemon) {
+  return `
+    <div data-id="overlay-pokemon-name">
+      <h2>${capitalize(pokemon.name)}</h2>
+    </div>`;
+}
+
+function getPokemonCardTemplate(pokemon, index) {
+  // NEU: index
   return `
     <li class="type-${pokemon.types[0].type.name}">
-      <button data-id="card" aria-label="Open details of ${capitalize(pokemon.name)}">
+      <button data-id="card" onclick="openDialog(${index})" aria-label="Open details of ${capitalize(pokemon.name)}"> <!-- NEU: onclick -->
         <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
         <p>${capitalize(pokemon.name)}</p>
         <div>${getTypesTemplate(pokemon)}</div>
@@ -69,5 +91,8 @@ function getPokemonCardTemplate(pokemon) {
 document
   .getElementById("loadMoreButton")
   .addEventListener("click", loadPokemonList);
+document
+  .getElementById("closeDialogButton")
+  .addEventListener("click", closeDialog); // NEU
 
 loadPokemonList();
