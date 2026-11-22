@@ -1,19 +1,28 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
-const PAGE_SIZE = 20; // NEU
+const PAGE_SIZE = 20;
 let loadedPokemon = [];
-let offset = 0; // NEU
+let offset = 0;
 
 async function loadPokemonList() {
+  setLoading(true); // NEU
   let response = await fetch(
     BASE_URL + "?limit=" + PAGE_SIZE + "&offset=" + offset,
-  ); // NEU
+  );
   let data = await response.json();
   for (let i = 0; i < data.results.length; i++) {
     let pokemon = await loadPokemonDetails(data.results[i].url);
     loadedPokemon.push(pokemon);
   }
-  offset += PAGE_SIZE; // NEU
+  offset += PAGE_SIZE;
   renderPokemonList();
+  setLoading(false); // NEU
+}
+
+// NEU
+function setLoading(isLoading) {
+  let button = document.getElementById("loadMoreButton");
+  button.disabled = isLoading;
+  button.textContent = isLoading ? "Loading..." : "Load more";
 }
 
 async function loadPokemonDetails(url) {
@@ -56,7 +65,6 @@ function getPokemonCardTemplate(pokemon) {
     </li>`;
 }
 
-// NEU
 document
   .getElementById("loadMoreButton")
   .addEventListener("click", loadPokemonList);
