@@ -38,3 +38,11 @@
 .type-normal {
   background-color: #a8a878;
 }
+
+#pokemonList button {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}

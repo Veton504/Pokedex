@@ -42,10 +42,12 @@ function getTypesTemplate(pokemon) {
 
 function getPokemonCardTemplate(pokemon) {
   return `
-    <li class="type-${pokemon.types[0].type.name}"> <!-- NEU -->
-      <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
-      <p>${capitalize(pokemon.name)}</p>
-      <div>${getTypesTemplate(pokemon)}</div>
+    <li class="type-${pokemon.types[0].type.name}">
+      <button data-id="card" aria-label="Open details of ${capitalize(pokemon.name)}"> <!-- NEU -->
+        <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
+        <p>${capitalize(pokemon.name)}</p>
+        <div>${getTypesTemplate(pokemon)}</div>
+      </button> <!-- NEU -->
     </li>`;
 }
 
