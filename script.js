@@ -2,6 +2,7 @@ const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 const PAGE_SIZE = 20;
 let loadedPokemon = [];
 let offset = 0;
+let currentIndex = 0; // NEU
 
 async function loadPokemonList() {
   setLoading(true);
@@ -40,17 +41,40 @@ function renderPokemonList() {
 }
 
 function openDialog(index) {
-  let pokemon = loadedPokemon[index];
+  currentIndex = index; // NEU
+  renderDialogContent(); // NEU
+  document.getElementById("pokemonDialog").showModal();
+}
+
+// NEU
+function renderDialogContent() {
+  let pokemon = loadedPokemon[currentIndex];
   document.getElementById("dialogContent").innerHTML =
     getDialogTemplate(pokemon);
-  document.getElementById("pokemonDialog").showModal();
+}
+
+// NEU
+function showNextPokemon() {
+  currentIndex++;
+  if (currentIndex >= loadedPokemon.length) {
+    currentIndex = 0;
+  }
+  renderDialogContent();
+}
+
+// NEU
+function showPreviousPokemon() {
+  currentIndex--;
+  if (currentIndex < 0) {
+    currentIndex = loadedPokemon.length - 1;
+  }
+  renderDialogContent();
 }
 
 function closeDialog() {
   document.getElementById("pokemonDialog").close();
 }
 
-// NEU
 function closeDialogOnOutsideClick(event) {
   if (event.target.id === "pokemonDialog") {
     closeDialog();
@@ -109,9 +133,16 @@ document
 document
   .getElementById("closeDialogButton")
   .addEventListener("click", closeDialog);
-// NEU
 document
   .getElementById("pokemonDialog")
   .addEventListener("click", closeDialogOnOutsideClick);
+// NEU
+document
+  .getElementById("nextButton")
+  .addEventListener("click", showNextPokemon);
+// NEU
+document
+  .getElementById("prevButton")
+  .addEventListener("click", showPreviousPokemon);
 
 loadPokemonList();
