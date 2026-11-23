@@ -1,8 +1,9 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 const PAGE_SIZE = 20;
 let loadedPokemon = [];
+let shownPokemon = []; // NEU
 let offset = 0;
-let currentIndex = 0; // NEU
+let currentIndex = 0;
 
 async function loadPokemonList() {
   setLoading(true);
@@ -15,6 +16,7 @@ async function loadPokemonList() {
     loadedPokemon.push(pokemon);
   }
   offset += PAGE_SIZE;
+  shownPokemon = loadedPokemon; // NEU
   renderPokemonList();
   setLoading(false);
 }
@@ -35,38 +37,37 @@ async function loadPokemonDetails(url) {
 function renderPokemonList() {
   let list = document.getElementById("pokemonList");
   list.innerHTML = "";
-  for (let i = 0; i < loadedPokemon.length; i++) {
-    list.innerHTML += getPokemonCardTemplate(loadedPokemon[i], i);
+  for (let i = 0; i < shownPokemon.length; i++) {
+    // NEU
+    list.innerHTML += getPokemonCardTemplate(shownPokemon[i], i); // NEU
   }
 }
 
 function openDialog(index) {
-  currentIndex = index; // NEU
-  renderDialogContent(); // NEU
+  currentIndex = index;
+  renderDialogContent();
   document.getElementById("pokemonDialog").showModal();
 }
 
-// NEU
 function renderDialogContent() {
-  let pokemon = loadedPokemon[currentIndex];
+  let pokemon = shownPokemon[currentIndex]; // NEU
   document.getElementById("dialogContent").innerHTML =
     getDialogTemplate(pokemon);
 }
 
-// NEU
 function showNextPokemon() {
   currentIndex++;
-  if (currentIndex >= loadedPokemon.length) {
+  if (currentIndex >= shownPokemon.length) {
+    // NEU
     currentIndex = 0;
   }
   renderDialogContent();
 }
 
-// NEU
 function showPreviousPokemon() {
   currentIndex--;
   if (currentIndex < 0) {
-    currentIndex = loadedPokemon.length - 1;
+    currentIndex = shownPokemon.length - 1; // NEU
   }
   renderDialogContent();
 }
@@ -136,11 +137,9 @@ document
 document
   .getElementById("pokemonDialog")
   .addEventListener("click", closeDialogOnOutsideClick);
-// NEU
 document
   .getElementById("nextButton")
   .addEventListener("click", showNextPokemon);
-// NEU
 document
   .getElementById("prevButton")
   .addEventListener("click", showPreviousPokemon);
