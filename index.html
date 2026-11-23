@@ -20,7 +20,6 @@
         Load more
       </button>
     </main>
-    <!-- NEU -->
     <dialog id="pokemonDialog" data-id="dialog" aria-label="Pokemon details">
       <button
         id="closeDialogButton"
@@ -30,6 +29,23 @@
         X
       </button>
       <div id="dialogContent"></div>
+      <!-- NEU -->
+      <div class="dialog-navigation">
+        <button
+          id="prevButton"
+          data-id="prev-button"
+          aria-label="Show previous pokemon"
+        >
+          &larr;
+        </button>
+        <button
+          id="nextButton"
+          data-id="next-button"
+          aria-label="Show next pokemon"
+        >
+          &rarr;
+        </button>
+      </div>
     </dialog>
     <div id="loadingScreen" class="loading-screen d-none">Loading...</div>
     <script src="script.js"></script>
