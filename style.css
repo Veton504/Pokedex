@@ -113,3 +113,12 @@
 .d-none {
   display: none;
 }
+
+/* NEU */
+#pokemonDialog {
+  padding: 0;
+}
+
+#dialogContent {
+  padding: 16px;
+}

@@ -50,6 +50,13 @@ function closeDialog() {
   document.getElementById("pokemonDialog").close();
 }
 
+// NEU
+function closeDialogOnOutsideClick(event) {
+  if (event.target.id === "pokemonDialog") {
+    closeDialog();
+  }
+}
+
 function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
@@ -66,7 +73,6 @@ function getTypesTemplate(pokemon) {
   return typesHtml;
 }
 
-// NEU
 function getStatsTemplate(pokemon) {
   let statsHtml = "";
   for (let i = 0; i < pokemon.stats.length; i++) {
@@ -82,7 +88,7 @@ function getDialogTemplate(pokemon) {
       <h2>${capitalize(pokemon.name)}</h2>
       <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="dialog-image" width="200">
       <div>${getTypesTemplate(pokemon)}</div>
-      <div>${getStatsTemplate(pokemon)}</div> <!-- NEU -->
+      <div>${getStatsTemplate(pokemon)}</div>
     </div>`;
 }
 
@@ -103,5 +109,9 @@ document
 document
   .getElementById("closeDialogButton")
   .addEventListener("click", closeDialog);
+// NEU
+document
+  .getElementById("pokemonDialog")
+  .addEventListener("click", closeDialogOnOutsideClick);
 
 loadPokemonList();
