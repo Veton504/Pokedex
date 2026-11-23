@@ -35,11 +35,10 @@ function renderPokemonList() {
   let list = document.getElementById("pokemonList");
   list.innerHTML = "";
   for (let i = 0; i < loadedPokemon.length; i++) {
-    list.innerHTML += getPokemonCardTemplate(loadedPokemon[i], i); // NEU
+    list.innerHTML += getPokemonCardTemplate(loadedPokemon[i], i);
   }
 }
 
-// NEU
 function openDialog(index) {
   let pokemon = loadedPokemon[index];
   document.getElementById("dialogContent").innerHTML =
@@ -47,7 +46,6 @@ function openDialog(index) {
   document.getElementById("pokemonDialog").showModal();
 }
 
-// NEU
 function closeDialog() {
   document.getElementById("pokemonDialog").close();
 }
@@ -69,18 +67,29 @@ function getTypesTemplate(pokemon) {
 }
 
 // NEU
+function getStatsTemplate(pokemon) {
+  let statsHtml = "";
+  for (let i = 0; i < pokemon.stats.length; i++) {
+    let stat = pokemon.stats[i];
+    statsHtml += `<p>${capitalize(stat.stat.name)}: ${stat.base_stat}</p>`;
+  }
+  return statsHtml;
+}
+
 function getDialogTemplate(pokemon) {
   return `
     <div data-id="overlay-pokemon-name">
       <h2>${capitalize(pokemon.name)}</h2>
+      <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="dialog-image" width="200">
+      <div>${getTypesTemplate(pokemon)}</div>
+      <div>${getStatsTemplate(pokemon)}</div> <!-- NEU -->
     </div>`;
 }
 
 function getPokemonCardTemplate(pokemon, index) {
-  // NEU: index
   return `
     <li class="type-${pokemon.types[0].type.name}">
-      <button data-id="card" onclick="openDialog(${index})" aria-label="Open details of ${capitalize(pokemon.name)}"> <!-- NEU: onclick -->
+      <button data-id="card" onclick="openDialog(${index})" aria-label="Open details of ${capitalize(pokemon.name)}">
         <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="card-image" width="120">
         <p>${capitalize(pokemon.name)}</p>
         <div>${getTypesTemplate(pokemon)}</div>
@@ -93,6 +102,6 @@ document
   .addEventListener("click", loadPokemonList);
 document
   .getElementById("closeDialogButton")
-  .addEventListener("click", closeDialog); // NEU
+  .addEventListener("click", closeDialog);
 
 loadPokemonList();
