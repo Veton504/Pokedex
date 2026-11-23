@@ -122,3 +122,8 @@
 #dialogContent {
   padding: 16px;
 }
+
+/* NEU */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
