@@ -38,17 +38,20 @@ function renderPokemonList() {
   let list = document.getElementById("pokemonList");
   list.innerHTML = "";
   if (shownPokemon.length === 0) {
-    // NEU
-    list.innerHTML = getNotFoundTemplate(); // NEU
+    list.innerHTML = getNotFoundTemplate();
   }
   for (let i = 0; i < shownPokemon.length; i++) {
     list.innerHTML += getPokemonCardTemplate(shownPokemon[i], i);
   }
 }
 
-// NEU
 function searchPokemon() {
   let term = document.getElementById("searchInput").value.trim().toLowerCase();
+  if (term.length === 0) { // NEU
+    shownPokemon = loadedPokemon; // NEU
+    renderPokemonList(); // NEU
+    return; // NEU
+  }
   if (term.length < 3) {
     return;
   }
@@ -129,7 +132,6 @@ function getDialogTemplate(pokemon) {
     </div>`;
 }
 
-// NEU
 function getNotFoundTemplate() {
   return `<li><p data-id="not-found">No match found.</p></li>`;
 }
@@ -160,7 +162,6 @@ document
 document
   .getElementById("prevButton")
   .addEventListener("click", showPreviousPokemon);
-// NEU
 document
   .getElementById("searchButton")
   .addEventListener("click", searchPokemon);
