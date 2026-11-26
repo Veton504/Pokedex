@@ -170,7 +170,7 @@ header {
   border: none;
   border-radius: 16px;
   width: min(90vw, 400px);
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 #closeDialogButton {
