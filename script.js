@@ -2,6 +2,7 @@ const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 const PAGE_SIZE = 20;
 let loadedPokemon = [];
 let shownPokemon = [];
+let evolutionCache = {};
 let offset = 0;
 let currentIndex = 0;
 
@@ -11,14 +12,13 @@ async function loadPokemonList() {
     BASE_URL + "?limit=" + PAGE_SIZE + "&offset=" + offset,
   );
   let data = await response.json();
-  await loadAndStorePokemon(data.results); // NEU
+  await loadAndStorePokemon(data.results);
   offset += PAGE_SIZE;
   shownPokemon = loadedPokemon;
   renderPokemonList();
   setLoading(false);
 }
 
-// NEU
 async function loadAndStorePokemon(results) {
   for (let i = 0; i < results.length; i++) {
     let pokemon = await loadPokemonDetails(results[i].url);
@@ -37,6 +37,29 @@ function setLoading(isLoading) {
 async function loadPokemonDetails(url) {
   let response = await fetch(url);
   return await response.json();
+}
+
+async function loadEvolutionChain(pokemon) {
+  if (evolutionCache[pokemon.name]) {
+    return evolutionCache[pokemon.name];
+  }
+  let speciesResponse = await fetch(pokemon.species.url);
+  let species = await speciesResponse.json();
+  let chainResponse = await fetch(species.evolution_chain.url);
+  let chainData = await chainResponse.json();
+  evolutionCache[pokemon.name] = chainData.chain;
+  return chainData.chain;
+}
+
+// NEU
+function getEvolutionNames(chain) {
+  let names = [capitalize(chain.species.name)];
+  let next = chain.evolves_to[0];
+  while (next) {
+    names.push(capitalize(next.species.name));
+    next = next.evolves_to[0];
+  }
+  return names;
 }
 
 function renderPokemonList() {
@@ -71,9 +94,21 @@ function openDialog(index) {
 }
 
 function renderDialogContent() {
+  // NEU: nicht mehr async
   let pokemon = shownPokemon[currentIndex];
   document.getElementById("dialogContent").innerHTML =
     getDialogTemplate(pokemon);
+  renderEvolution(pokemon); // NEU
+}
+
+// NEU
+async function renderEvolution(pokemon) {
+  let chain = await loadEvolutionChain(pokemon);
+  if (shownPokemon[currentIndex] !== pokemon) {
+    return;
+  }
+  let names = getEvolutionNames(chain).join(" → ");
+  document.getElementById("evolution").textContent = "Evolution: " + names;
 }
 
 function showNextPokemon() {
@@ -134,6 +169,7 @@ function getDialogTemplate(pokemon) {
       <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="dialog-image" width="200">
       <div>${getTypesTemplate(pokemon)}</div>
       <div>${getStatsTemplate(pokemon)}</div>
+      <p id="evolution">Loading evolution...</p> <!-- NEU -->
     </div>`;
 }
 
