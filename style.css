@@ -164,3 +164,28 @@ header {
   display: block;
   margin: 24px auto;
 }
+
+/* NEU */
+#pokemonDialog {
+  border: none;
+  border-radius: 16px;
+  width: min(90vw, 400px);
+  overflow: hidden;
+}
+
+#closeDialogButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.dialog-card {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.dialog-navigation {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 16px 16px;
+}

@@ -47,10 +47,10 @@ function renderPokemonList() {
 
 function searchPokemon() {
   let term = document.getElementById("searchInput").value.trim().toLowerCase();
-  if (term.length === 0) { // NEU
-    shownPokemon = loadedPokemon; // NEU
-    renderPokemonList(); // NEU
-    return; // NEU
+  if (term.length === 0) {
+    shownPokemon = loadedPokemon;
+    renderPokemonList();
+    return;
   }
   if (term.length < 3) {
     return;
@@ -124,7 +124,7 @@ function getStatsTemplate(pokemon) {
 
 function getDialogTemplate(pokemon) {
   return `
-    <div data-id="overlay-pokemon-name">
+    <div data-id="overlay-pokemon-name" class="dialog-card type-${pokemon.types[0].type.name}"> <!-- NEU: class -->
       <h2>${capitalize(pokemon.name)}</h2>
       <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="dialog-image" width="200">
       <div>${getTypesTemplate(pokemon)}</div>
