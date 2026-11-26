@@ -45,7 +45,7 @@
   background-color: #a8a878;
 }
 
-/* NEU ab hier */
+
 .type-poison {
   background-color: #a040a0;
 }
@@ -98,7 +98,7 @@
   background-color: #a890f0;
 }
 
-/* NEU */
+
 .loading-screen {
   position: fixed;
   inset: 0;
@@ -114,7 +114,7 @@
   display: none;
 }
 
-/* NEU */
+
 #pokemonDialog {
   padding: 0;
 }
@@ -123,12 +123,11 @@
   padding: 16px;
 }
 
-/* NEU */
+
 body:has(dialog[open]) {
   overflow: hidden;
 }
 
-/* NEU */
 header {
   display: flex;
   align-items: center;
@@ -142,7 +141,7 @@ header {
   gap: 8px;
 }
 
-/* NEU */
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -165,7 +164,7 @@ header {
   margin: 24px auto;
 }
 
-/* NEU */
+
 #pokemonDialog {
   border: none;
   border-radius: 16px;

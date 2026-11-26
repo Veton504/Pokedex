@@ -51,7 +51,7 @@ async function loadEvolutionChain(pokemon) {
   return chainData.chain;
 }
 
-// NEU
+
 function getEvolutionNames(chain) {
   let names = [capitalize(chain.species.name)];
   let next = chain.evolves_to[0];
@@ -94,14 +94,14 @@ function openDialog(index) {
 }
 
 function renderDialogContent() {
-  // NEU: nicht mehr async
+  
   let pokemon = shownPokemon[currentIndex];
   document.getElementById("dialogContent").innerHTML =
     getDialogTemplate(pokemon);
   renderEvolution(pokemon); // NEU
 }
 
-// NEU
+
 async function renderEvolution(pokemon) {
   let chain = await loadEvolutionChain(pokemon);
   if (shownPokemon[currentIndex] !== pokemon) {
