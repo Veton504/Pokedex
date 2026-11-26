@@ -127,3 +127,17 @@
 body:has(dialog[open]) {
   overflow: hidden;
 }
+
+/* NEU */
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+
+.search-bar {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
