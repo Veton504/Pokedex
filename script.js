@@ -1,7 +1,7 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 const PAGE_SIZE = 20;
 let loadedPokemon = [];
-let shownPokemon = []; // NEU
+let shownPokemon = [];
 let offset = 0;
 let currentIndex = 0;
 
@@ -16,7 +16,7 @@ async function loadPokemonList() {
     loadedPokemon.push(pokemon);
   }
   offset += PAGE_SIZE;
-  shownPokemon = loadedPokemon; // NEU
+  shownPokemon = loadedPokemon;
   renderPokemonList();
   setLoading(false);
 }
@@ -37,10 +37,23 @@ async function loadPokemonDetails(url) {
 function renderPokemonList() {
   let list = document.getElementById("pokemonList");
   list.innerHTML = "";
-  for (let i = 0; i < shownPokemon.length; i++) {
+  if (shownPokemon.length === 0) {
     // NEU
-    list.innerHTML += getPokemonCardTemplate(shownPokemon[i], i); // NEU
+    list.innerHTML = getNotFoundTemplate(); // NEU
   }
+  for (let i = 0; i < shownPokemon.length; i++) {
+    list.innerHTML += getPokemonCardTemplate(shownPokemon[i], i);
+  }
+}
+
+// NEU
+function searchPokemon() {
+  let term = document.getElementById("searchInput").value.trim().toLowerCase();
+  if (term.length < 3) {
+    return;
+  }
+  shownPokemon = loadedPokemon.filter((pokemon) => pokemon.name.includes(term));
+  renderPokemonList();
 }
 
 function openDialog(index) {
@@ -50,7 +63,7 @@ function openDialog(index) {
 }
 
 function renderDialogContent() {
-  let pokemon = shownPokemon[currentIndex]; // NEU
+  let pokemon = shownPokemon[currentIndex];
   document.getElementById("dialogContent").innerHTML =
     getDialogTemplate(pokemon);
 }
@@ -58,7 +71,6 @@ function renderDialogContent() {
 function showNextPokemon() {
   currentIndex++;
   if (currentIndex >= shownPokemon.length) {
-    // NEU
     currentIndex = 0;
   }
   renderDialogContent();
@@ -67,7 +79,7 @@ function showNextPokemon() {
 function showPreviousPokemon() {
   currentIndex--;
   if (currentIndex < 0) {
-    currentIndex = shownPokemon.length - 1; // NEU
+    currentIndex = shownPokemon.length - 1;
   }
   renderDialogContent();
 }
@@ -117,6 +129,11 @@ function getDialogTemplate(pokemon) {
     </div>`;
 }
 
+// NEU
+function getNotFoundTemplate() {
+  return `<li><p data-id="not-found">No match found.</p></li>`;
+}
+
 function getPokemonCardTemplate(pokemon, index) {
   return `
     <li class="type-${pokemon.types[0].type.name}">
@@ -143,5 +160,9 @@ document
 document
   .getElementById("prevButton")
   .addEventListener("click", showPreviousPokemon);
+// NEU
+document
+  .getElementById("searchButton")
+  .addEventListener("click", searchPokemon);
 
 loadPokemonList();
