@@ -1,70 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pokedex</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <!-- NEU -->
-      <img src="assets/logo.svg" alt="Pokedex logo" width="40" height="40" />
-      <h1>Pokedex</h1>
-      <div class="search-bar">
-        <input
-          id="searchInput"
-          data-id="search-input"
-          type="text"
-          placeholder="Search pokemon"
-          aria-label="Search pokemon by name"
-        />
-        <button
-          id="searchButton"
-          data-id="search-button"
-          aria-label="Start search"
-        >
-          Search
-        </button>
-      </div>
-    </header>
-    <main data-id="content">
-      <ul id="pokemonList"></ul>
-      <button
-        id="loadMoreButton"
-        data-id="load-more-button"
-        aria-label="Load more pokemon"
-      >
-        Load more
-      </button>
-    </main>
-    <dialog id="pokemonDialog" data-id="dialog" aria-label="Pokemon details">
-      <button
-        id="closeDialogButton"
-        data-id="close-dialog-button"
-        aria-label="Close details"
-      >
-        X
-      </button>
-      <div id="dialogContent"></div>
-      <div class="dialog-navigation">
-        <button
-          id="prevButton"
-          data-id="prev-button"
-          aria-label="Show previous pokemon"
-        >
-          &larr;
-        </button>
-        <button
-          id="nextButton"
-          data-id="next-button"
-          aria-label="Show next pokemon"
-        >
-          &rarr;
-        </button>
-      </div>
-    </dialog>
-    <div id="loadingScreen" class="loading-screen d-none">Loading...</div>
-    <script src="script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokedex</title>
+  <!-- NEU -->
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="assets/logo.svg" alt="Pokedex logo" width="40" height="40">
+    <h1>Pokedex</h1>
+    <div class="search-bar">
+      <input id="searchInput" data-id="search-input" type="text" placeholder="Search pokemon" aria-label="Search pokemon by name">
+      <button id="searchButton" data-id="search-button" aria-label="Start search">Search</button>
+    </div>
+  </header>
+  <main data-id="content">
+    <ul id="pokemonList"></ul>
+    <button id="loadMoreButton" data-id="load-more-button" aria-label="Load more pokemon">Load more</button>
+  </main>
+  <dialog id="pokemonDialog" data-id="dialog" aria-label="Pokemon details">
+    <button id="closeDialogButton" data-id="close-dialog-button" aria-label="Close details">X</button>
+    <div id="dialogContent"></div>
+    <div class="dialog-navigation">
+      <button id="prevButton" data-id="prev-button" aria-label="Show previous pokemon">&larr;</button>
+      <button id="nextButton" data-id="next-button" aria-label="Show next pokemon">&rarr;</button>
+    </div>
+  </dialog>
+  <div id="loadingScreen" class="loading-screen d-none">Loading...</div>
+  <script src="script.js"></script>
+</body>
 </html>
