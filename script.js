@@ -11,14 +11,19 @@ async function loadPokemonList() {
     BASE_URL + "?limit=" + PAGE_SIZE + "&offset=" + offset,
   );
   let data = await response.json();
-  for (let i = 0; i < data.results.length; i++) {
-    let pokemon = await loadPokemonDetails(data.results[i].url);
-    loadedPokemon.push(pokemon);
-  }
+  await loadAndStorePokemon(data.results); // NEU
   offset += PAGE_SIZE;
   shownPokemon = loadedPokemon;
   renderPokemonList();
   setLoading(false);
+}
+
+// NEU
+async function loadAndStorePokemon(results) {
+  for (let i = 0; i < results.length; i++) {
+    let pokemon = await loadPokemonDetails(results[i].url);
+    loadedPokemon.push(pokemon);
+  }
 }
 
 function setLoading(isLoading) {
@@ -124,7 +129,7 @@ function getStatsTemplate(pokemon) {
 
 function getDialogTemplate(pokemon) {
   return `
-    <div data-id="overlay-pokemon-name" class="dialog-card type-${pokemon.types[0].type.name}"> <!-- NEU: class -->
+    <div data-id="overlay-pokemon-name" class="dialog-card type-${pokemon.types[0].type.name}">
       <h2>${capitalize(pokemon.name)}</h2>
       <img src="${getPokemonImage(pokemon)}" alt="${capitalize(pokemon.name)}" data-id="dialog-image" width="200">
       <div>${getTypesTemplate(pokemon)}</div>
