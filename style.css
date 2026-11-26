@@ -141,3 +141,26 @@ header {
   display: flex;
   gap: 8px;
 }
+
+/* NEU */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header,
+main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+header {
+  flex-wrap: wrap;
+}
+
+#loadMoreButton {
+  display: block;
+  margin: 24px auto;
+}
